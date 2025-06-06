@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_reusemart/client/AuthClient.dart';
+import 'package:flutter_application_reusemart/homePegawai.dart'; // Pastikan file auth_client.dart ada di project kamu
+import 'package:flutter_application_reusemart/homePembeli.dart'; // Pastikan file auth_client.dart ada di project kamu
+import 'package:flutter_application_reusemart/homePenitip.dart'; // Pastikan file auth_client.dart ada di project kamu
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,35 +16,44 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  
+
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
+  final AuthClient _authClient = AuthClient();
+
+  bool _isLoading = false;
+
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
-    
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeOutCubic,
-    ));
-    
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
+
     _animationController.forward();
   }
 
@@ -51,6 +64,63 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     _passwordController.dispose();
     super.dispose();
   }
+
+  Future<void> _handleLogin() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final result = await _authClient.login(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
+
+      final role = result['role'];
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(result['message'] ?? 'Login berhasil!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      // Arahkan ke halaman sesuai role
+      if (role == 'penitip') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomePenitip()),
+        );
+      } else if (role == 'pegawai') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomePegawai()),
+        );
+      } else if (role == 'pembeli') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomePembeli()),
+        );
+      } else {
+        throw Exception('Role tidak dikenali');
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +245,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
           ),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -212,7 +283,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
           prefixIcon: Icon(Icons.lock_outline, color: Colors.grey.shade600),
           suffixIcon: IconButton(
             icon: Icon(
-              _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+              _obscurePassword
+                  ? Icons.visibility_outlined
+                  : Icons.visibility_off_outlined,
               color: Colors.grey.shade600,
             ),
             onPressed: () {
@@ -227,7 +300,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
           ),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -270,28 +344,19 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             borderRadius: BorderRadius.circular(16),
           ),
         ),
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text('Login berhasil!'),
-                backgroundColor: Colors.green,
-                behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+        onPressed: _isLoading ? null : _handleLogin,
+        child: _isLoading
+            ? const CircularProgressIndicator(
+                color: Colors.white,
+              )
+            : const Text(
+                'Masuk',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-            );
-          }
-        },
-        child: const Text(
-          'Masuk',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
       ),
     );
   }
