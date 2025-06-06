@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_reusemart/client/AuthClient.dart';// file dimana ada AuthClient, MeResponse, dll
+import 'package:flutter_application_reusemart/client/AuthClient.dart'; // file dimana ada AuthClient, MeResponse, dll
 import 'package:flutter_application_reusemart/entity/Pegawai.dart';
 import 'package:flutter_application_reusemart/entity/Pembeli.dart';
 import 'package:flutter_application_reusemart/entity/Penitip.dart';
+import 'package:flutter_application_reusemart/PegawaiProfile.dart';
+import 'package:flutter_application_reusemart/PenitipProfile.dart';
+import 'package:flutter_application_reusemart/PembeliProfile.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -49,10 +52,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _logout() async {
     try {
-      await authClient.logout();  // Asumsikan ada method logout di AuthClient yang menghapus token dll
+      await authClient
+          .logout(); // Asumsikan ada method logout di AuthClient yang menghapus token dll
       // Setelah logout, pindah ke halaman login atau halaman utama
       if (!mounted) return;
-      Navigator.of(context).pushReplacementNamed('/login'); // Ganti dengan route login kamu
+      Navigator.of(context)
+          .pushReplacementNamed('/login'); // Ganti dengan route login kamu
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -61,56 +66,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  Widget _buildProfile() {
-    if (user == null || role == null) {
-      return const Text('Tidak ada data profil');
-    }
-
-    switch (role) {
-      case 'pegawai':
-        final Pegawai pegawai = user as Pegawai;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Nama: ${pegawai.namaPegawai ?? "-"}', style: _titleStyle),
-            Text('Tanggal Lahir: ${pegawai.tanggalLahirPegawai ?? "-"}'),
-            Text('No. Telepon: ${pegawai.nomorTeleponPegawai ?? "-"}'),
-            Text('Email: ${pegawai.emailPegawai ?? "-"}'),
-            Text('Jabatan: ${pegawai.jabatan?.namaJabatan ?? "-"}'),
-          ],
-        );
-
-      case 'penitip':
-        final Penitip penitip = user as Penitip;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Nama: ${penitip.namaPenitip ?? "-"}', style: _titleStyle),
-            Text('No. KTP: ${penitip.nomorKtp ?? "-"}'),
-            Text('Email: ${penitip.emailPenitip ?? "-"}'),
-            Text('Tanggal Lahir: ${penitip.tanggalLahir ?? "-"}'),
-            Text('Saldo: ${penitip.saldoPenitip?.toStringAsFixed(2) ?? "-"}'),
-            Text('Total Poin: ${penitip.totalPoin ?? "-"}'),
-            Text('Badge: ${penitip.badge ?? "-"}'),
-            Text('Rating: ${penitip.ratingPenitip?.toStringAsFixed(2) ?? "-"}'),
-          ],
-        );
-
-      case 'pembeli':
-        final Pembeli pembeli = user as Pembeli;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Nama: ${pembeli.namaPembeli ?? "-"}', style: _titleStyle),
-            Text('Email: ${pembeli.emailPembeli ?? "-"}'),
-            Text('No. Telepon: ${pembeli.nomorTeleponPembeli ?? "-"}'),
-          ],
-        );
-
-      default:
-        return Text('Role tidak dikenal: $role');
-    }
+ Widget _buildProfile() {
+  if (user == null || role == null) {
+    return const Text('Tidak ada data profil');
   }
+
+  switch (role) {
+    case 'pegawai':
+      return PegawaiProfile(pegawai: user as Pegawai);
+    case 'penitip':
+      return PenitipProfile(penitip: user as Penitip);
+    case 'pembeli':
+      return PembeliProfile(pembeli: user as Pembeli);
+    default:
+      return Text('Role tidak dikenal: $role');
+  }
+}
+
 
   final TextStyle _titleStyle = const TextStyle(
     fontWeight: FontWeight.bold,
