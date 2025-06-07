@@ -18,27 +18,27 @@ class PegawaiProfile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.1),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              color: Colors.blue.withOpacity(0.1),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(16)),
             ),
             child: Row(
               children: [
-                // Profile avatar
                 Container(
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.blue,
                     border: Border.all(
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.blue,
                       width: 2,
                     ),
                   ),
                   child: Center(
                     child: Text(
                       pegawai.namaPegawai?.substring(0, 1) ?? "?",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -47,7 +47,6 @@ class PegawaiProfile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                // Name and role
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +64,7 @@ class PegawaiProfile extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+                            color: Colors.blue,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
@@ -82,6 +81,7 @@ class PegawaiProfile extends StatelessWidget {
               ],
             ),
           ),
+
           // Details section
           Padding(
             padding: const EdgeInsets.all(16),
@@ -110,26 +110,40 @@ class PegawaiProfile extends StatelessWidget {
               ],
             ),
           ),
-          // Footer with contact button
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.message),
-                label: const Text("Hubungi Kurir"),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+
+          // Riwayat Tugas Pengiriman hanya jika jabatan Kurir
+          if (pegawai.jabatan?.namaJabatan == 'Kurir')
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Riwayat Tugas Pengiriman',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  // Handle contact action
-                },
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    height: 200, // Atur tinggi scroll area sesuai kebutuhan
+                    child: ListView.builder(
+                      itemCount: 10, // Ganti sesuai jumlah riwayat
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: const Icon(Icons.local_shipping,
+                              color: Colors.blue),
+                          title: Text('Pengiriman #${index + 1}'),
+                          subtitle:
+                              const Text('Tujuan: Jakarta\nStatus: Selesai'),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
         ],
       ),
     );
@@ -146,7 +160,7 @@ class PegawaiProfile extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: Theme.of(context).primaryColor,
+          color: Colors.blue,
           size: 24,
         ),
         const SizedBox(width: 12),
