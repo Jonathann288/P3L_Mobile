@@ -25,7 +25,7 @@ class UserData {
         user = Pembeli.fromJson(json['user']);
         break;
       default:
-        user = json['user']; // fallback raw map
+        user = json['user'];
     }
 
     return UserData(
