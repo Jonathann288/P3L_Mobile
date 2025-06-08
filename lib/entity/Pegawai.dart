@@ -1,4 +1,5 @@
 import 'package:flutter_application_reusemart/entity/Jabatan.dart';
+import 'Komisi.dart';
 class Pegawai {
   final int? idPegawai;
   final String? namaPegawai;
@@ -8,6 +9,8 @@ class Pegawai {
   final String? passwordPegawai;
   final int? idJabatan;
   final Jabatan? jabatan;
+  final double? totalKomisi;
+  final List<Komisi>? komisi;
 
   Pegawai({
     this.idPegawai,
@@ -18,6 +21,8 @@ class Pegawai {
     this.passwordPegawai,
     this.idJabatan,
     this.jabatan,
+    this.totalKomisi,
+    this.komisi,
   });
 
   static int? parseInt(dynamic value) {
@@ -37,6 +42,10 @@ class Pegawai {
       passwordPegawai: json['password_pegawai'],
       idJabatan: parseInt(json['id_jabatan']),
       jabatan: json['jabatan'] != null ? Jabatan.fromJson(json['jabatan']) : null,
+      totalKomisi: (json['total_komisi'] as num?)?.toDouble(),
+      komisi: json['komisi'] != null
+        ? List<Komisi>.from(json['komisi'].map((k) => Komisi.fromJson(k)))
+        : null,
     );
   }
 
@@ -50,6 +59,8 @@ class Pegawai {
       'password_pegawai': passwordPegawai,
       'id_jabatan': idJabatan,
       'jabatan': jabatan?.toJson(),
+      'total_komisi' : totalKomisi,
+      'komisi': komisi?.map((k) => k.toJson()).toList(),
     };
   }
 }

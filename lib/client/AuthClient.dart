@@ -7,10 +7,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthClient {
-  static final String url = '192.168.1.2'; // pakai http dan port Laravel
+  static final String url = '10.0.2.2'; // pakai http dan port Laravel
 
   Future<Map<String, dynamic>> login(String email, String password) async {
-    final uri = Uri.http('$url', 'P3L/public/api/auth/login'); // gunakan parse, bukan http()
+    final uri = Uri.http('$url', '/P3L/public/api/auth/login'); // gunakan parse, bukan http()
     final response = await http.post(
       uri,
       headers: {'Content-Type': 'application/json'},

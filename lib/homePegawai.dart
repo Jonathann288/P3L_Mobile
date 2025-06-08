@@ -5,102 +5,80 @@ class HomePegawai extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> barangList = [
-      {'nama': 'Kaos ReuseMart', 'harga': 50000},
-      {'nama': 'Botol Bekas', 'harga': 15000},
-      {'nama': 'Tas Rajut', 'harga': 75000},
-    ];
-
     return Scaffold(
-      backgroundColor: const Color(0xFF33AADD), // latar biru
+      backgroundColor: const Color(0xFF33AADD),
       appBar: AppBar(
         title: const Text('Beranda Pegawai'),
         backgroundColor: Colors.blue,
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 16),
-          const Text(
-            'Daftar Barang Dijual',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: ListView.builder(
-              itemCount: barangList.length,
-              itemBuilder: (context, index) {
-                final barang = barangList[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: ListTile(
-                    title: Text(barang['nama']),
-                    subtitle: Text('Harga: Rp ${barang['harga']}'),
-                    trailing: ElevatedButton(
-                      onPressed: () {
-                        // aksi beli / lihat detail
-                      },
-                      child: const Text('Beli'),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 16),
-          _buildBottomNavBar(context),
-          const SizedBox(height: 24),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNavBar(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 8,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _navItem(Icons.store, "Merch", Colors.orange, context, '/merchandise'),
-            _navItem(Icons.history, "History", Colors.pink, context, '/history'),
-            _navItem(Icons.person, "Profil", Colors.blue, context, '/profil'),
+            const SizedBox(height: 8),
+            const Text(
+              'Selamat Datang, Pegawai!',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Akses cepat ke fitur utama:',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
+            const SizedBox(height: 16),
+
+            // Grid Menu Navigasi Cepat
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              children: [
+                _quickAccessCard(context, Icons.history, 'History Pegawai', Colors.white, '/history'),
+                _quickAccessCard(context, Icons.person, 'Profil', Colors.white, '/profil'),
+                _quickAccessCard(context, Icons.inventory, 'Data Barang', Colors.white, '/barang'),
+                _quickAccessCard(context, Icons.attach_money, 'Riwayat Komisi', Colors.white, '/komisi'),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+            const SizedBox(height: 24),
           ],
         ),
       ),
     );
   }
 
-  Widget _navItem(
-    IconData icon,
-    String label,
-    Color color,
-    BuildContext context,
-    String routeName,
-  ) {
+  Widget _quickAccessCard(BuildContext context, IconData icon, String label, Color bgColor, String route) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, routeName);
+        Navigator.pushNamed(context, route);
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: color),
-          const SizedBox(height: 4),
-          Text(label, style: TextStyle(color: color)),
-        ],
+      child: Container(
+        decoration: BoxDecoration(
+          color: bgColor.withOpacity(0.9),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: const [
+            BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(2, 2)),
+          ],
+        ),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 36, color: Colors.blue),
+            const SizedBox(height: 10),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
+
 }

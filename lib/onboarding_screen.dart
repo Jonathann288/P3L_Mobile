@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product_page.dart';
 import 'login_page.dart';
+import 'package:flutter_application_reusemart/home.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -72,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  MaterialPageRoute(builder: (context) => const HomePage()),
                 );
               },
               child: const Text(
@@ -190,32 +191,6 @@ class Slide extends StatelessWidget {
                 },
                 child: Text(
                   'LOGIN',
-                  style: TextStyle(
-                    color: backgroundColor[800],
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ProductPage()),
-                  );
-                },
-                child: Text(
-                  'LIHAT PRODUK',
                   style: TextStyle(
                     color: backgroundColor[800],
                     fontSize: 16,

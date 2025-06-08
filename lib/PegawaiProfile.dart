@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_reusemart/entity/Pegawai.dart';
+import 'package:flutter_application_reusemart/entity/Komisi.dart';
 
 class PegawaiProfile extends StatelessWidget {
   final Pegawai pegawai;
@@ -144,6 +145,38 @@ class PegawaiProfile extends StatelessWidget {
                 ],
               ),
             ),
+
+          if (pegawai.jabatan?.namaJabatan?.toLowerCase() == 'hunter' && pegawai.komisi != null)
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Jumlah Komisi Hunter',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      const Icon(Icons.attach_money, color: Colors.green),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Total Komisi: Rp ${pegawai.totalKomisi?.toStringAsFixed(0) ?? "0"}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+
         ],
       ),
     );

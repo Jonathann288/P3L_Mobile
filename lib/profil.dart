@@ -16,6 +16,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final AuthClient authClient = AuthClient();
+  final Color blue600 = const Color(0xFF2563EB);
 
   bool isLoading = true;
   String? errorMessage;
@@ -93,7 +94,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil Saya'),
+        title: Text(
+          'Profil Saya',
+          style: const TextStyle(color: Colors.white),
+          ),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -101,6 +105,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: _logout,
           ),
         ],
+        backgroundColor: blue600,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
