@@ -8,7 +8,7 @@ import 'package:flutter_application_reusemart/PenitipProfile.dart';
 import 'package:flutter_application_reusemart/PembeliProfile.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -66,23 +66,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
- Widget _buildProfile() {
-  if (user == null || role == null) {
-    return const Text('Tidak ada data profil');
-  }
+  Widget _buildProfile() {
+    if (user == null || role == null) {
+      return const Text('Tidak ada data profil');
+    }
 
-  switch (role) {
-    case 'pegawai':
-      return PegawaiProfile(pegawai: user as Pegawai);
-    case 'penitip':
-      return PenitipProfile(penitip: user as Penitip);
-    case 'pembeli':
-      return PembeliProfile(pembeli: user as Pembeli);
-    default:
-      return Text('Role tidak dikenal: $role');
+    switch (role) {
+      case 'pegawai':
+        return PegawaiProfile(pegawai: user as Pegawai);
+      case 'penitip':
+        return PenitipProfile(penitip: user as Penitip);
+      case 'pembeli':
+        return PembeliProfile(pembeli: user as Pembeli);
+      default:
+        return Text('Role tidak dikenal: $role');
+    }
   }
-}
-
 
   final TextStyle _titleStyle = const TextStyle(
     fontWeight: FontWeight.bold,
@@ -102,14 +101,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : errorMessage != null
-                ? Center(child: Text('Error: $errorMessage'))
-                : _buildProfile(),
-      ),
+      //...
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : errorMessage != null
+              ? Center(child: Text('Error: $errorMessage'))
+              : _buildProfile(),
+//...
     );
   }
 }

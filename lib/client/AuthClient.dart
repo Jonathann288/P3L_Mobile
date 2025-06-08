@@ -7,10 +7,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthClient {
-  static final String url = '192.168.1.2'; // pakai http dan port Laravel
+  static const String url = '192.168.1.6'; // pakai http dan port Laravel
 
   Future<Map<String, dynamic>> login(String email, String password) async {
-    final uri = Uri.http('$url', 'P3L/public/api/auth/login'); // gunakan parse, bukan http()
+    final uri = Uri.http(url, 'P3L/public/api/auth/login'); // gunakan parse, bukan http()
     final response = await http.post(
       uri,
       headers: {'Content-Type': 'application/json'},
@@ -38,7 +38,7 @@ class AuthClient {
       throw Exception('Token tidak ditemukan, silahkan login ulang');
     }
 
-    final uri = Uri.http('$url', '/P3L/public/api/auth/me'); // sesuaikan endpoint
+    final uri = Uri.http(url, '/P3L/public/api/auth/me'); // sesuaikan endpoint
 
     final response = await http.get(
       uri,
@@ -61,7 +61,7 @@ class AuthClient {
     final token = prefs.getString('token');
     if (token == null) return false;
 
-    final uri = Uri.http('$url', '/P3L/public/api/auth/logout');
+    final uri = Uri.http(url, '/P3L/public/api/auth/logout');
     final response = await http.post(
       uri,
       headers: {

@@ -138,7 +138,7 @@ class HistoryPegawaiPage extends StatelessWidget {
                 ),
               ),
             );
-          }).toList(),
+          }),
         ],
       ),
     );

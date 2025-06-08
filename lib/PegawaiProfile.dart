@@ -4,7 +4,7 @@ import 'package:flutter_application_reusemart/entity/Pegawai.dart';
 class PegawaiProfile extends StatelessWidget {
   final Pegawai pegawai;
 
-  const PegawaiProfile({Key? key, required this.pegawai}) : super(key: key);
+  const PegawaiProfile({super.key, required this.pegawai});
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,14 @@
+// File: lib/main.dart
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
-import 'onboarding_screen.dart';
+import 'onboarding_screen.dart'; // 
 import 'login_page.dart';
 import 'profil.dart';
+import 'historyPembeli.dart'; // 1. IMPORT HALAMAN HISTORY DI SINI
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
   runApp(const MyApp());
 }
 
@@ -23,6 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginPage(),
         '/profil': (context) => const ProfileScreen(),
+        '/history': (context) => const HistoryPembeli(),
       },
     );
   }

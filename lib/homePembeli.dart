@@ -12,9 +12,9 @@ class HomePembeli extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFF33AADD), // latar biru
+      backgroundColor: const Color(0xFF33AADD), // Latar belakang biru 
       appBar: AppBar(
-        title: const Text('Beranda Pembeli'),
+        title: const Text('Selamat Datang'),
         backgroundColor: Colors.blue,
       ),
       body: Column(
@@ -22,7 +22,7 @@ class HomePembeli extends StatelessWidget {
           const SizedBox(height: 16),
           const Text(
             'Daftar Barang Dijual',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white), // Ubah warna teks agar kontras
           ),
           const SizedBox(height: 8),
           Expanded(
@@ -73,8 +73,9 @@ class HomePembeli extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _navItem(Icons.store, "Merch", Colors.orange, context, '/merchandise'),
-            _navItem(Icons.history, "History", Colors.pink, context, '/history'),
+            // PERUBAHAN: Warna ikon diubah menjadi biru untuk konsistensi tema
+            _navItem(Icons.store, "Merch", Colors.blue, context, '/merchandise'),
+            _navItem(Icons.history, "History", Colors.blue, context, '/history'),
             _navItem(Icons.person, "Profil", Colors.blue, context, '/profil'),
           ],
         ),

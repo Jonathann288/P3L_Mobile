@@ -5,7 +5,7 @@ class PenitipProfile extends StatelessWidget {
   final Penitip penitip;
   final Color primaryColor = Colors.blue; // Customize with your app's theme
 
-  const PenitipProfile({Key? key, required this.penitip}) : super(key: key);
+  const PenitipProfile({super.key, required this.penitip});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class PenitipProfile extends StatelessWidget {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.star,
                             color: Colors.amber,
                             size: 20,
@@ -70,7 +70,7 @@ class PenitipProfile extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             penitip.ratingPenitip?.toStringAsFixed(1) ?? "0.0",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
