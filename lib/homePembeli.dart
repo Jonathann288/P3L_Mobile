@@ -15,7 +15,7 @@ class HomePembeli extends StatelessWidget {
       backgroundColor: const Color(0xFF33AADD), // Latar belakang biru 
       appBar: AppBar(
         title: const Text('Selamat Datang'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 229, 232, 234),
       ),
       body: Column(
         children: [

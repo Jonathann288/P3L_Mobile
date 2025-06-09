@@ -14,7 +14,8 @@ class PembeliProfile extends StatelessWidget {
 
     // PERUBAHAN: Memformat tanggal lahir agar hanya menampilkan tanggal
     // Ini akan mengambil bagian pertama dari string jika ada spasi (misal: "2000-01-15 00:00:00" menjadi "2000-01-15")
-    final String tanggalLahirFormatted = pembeli.tanggalLahir?.split(' ').first ?? "-";
+    final String tanggalLahirFormatted =
+        pembeli.tanggalLahir?.split(' ').first ?? "-";
 
     return Scaffold(
       // PERUBAHAN: Latar belakang disamakan dengan homePembeli
@@ -28,7 +29,7 @@ class PembeliProfile extends StatelessWidget {
               radius: 50,
               backgroundColor: primaryColor,
               backgroundImage: (fotoUrl != null && fotoUrl.isNotEmpty)
-                  ? NetworkImage("http://192.168.1.6/P3L/public/storage/" + fotoUrl)
+                  ? NetworkImage("http://192.168.1.46/P3L/public/${fotoUrl}")
                   : null,
               child: (fotoUrl == null || fotoUrl.isEmpty)
                   ? Text(
@@ -96,8 +97,11 @@ class PembeliProfile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton.icon(
-                icon: const Icon(Icons.edit, color: Colors.white), // pastikan ikon terlihat
-                label: const Text("Edit Profil", style: TextStyle(color: Colors.white)), // pastikan teks terlihat
+                icon: const Icon(Icons.edit,
+                    color: Colors.white), // pastikan ikon terlihat
+                label: const Text("Edit Profil",
+                    style: TextStyle(
+                        color: Colors.white)), // pastikan teks terlihat
                 onPressed: () {
                   // Tambahkan logika navigasi ke halaman edit profil
                 },

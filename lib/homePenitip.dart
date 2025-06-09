@@ -15,7 +15,7 @@ class HomePenitip extends StatelessWidget {
       backgroundColor: const Color(0xFF33AADD), // latar biru
       appBar: AppBar(
         title: const Text('Beranda Penitip'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 234, 236, 238),
       ),
       body: Column(
         children: [
