@@ -123,7 +123,7 @@ class _HistoryPenitipPageState extends State<HistoryPenitipPage> {
                         // Detail-detail
                         _buildDetailRow(Icons.vpn_key_outlined, "ID Transaksi Penitipan", item.idTransaksiPenitipan ?? '-'),
                         _buildDetailRow(Icons.calendar_today_outlined, "Tanggal Penitipan", item.tanggalPenitipan),
-                        _buildDetailRow(Icons.event_busy_outlined, "Batas Pengambilan", item.tanggalBatasPengambilan ?? 'Belum ditentukan'),
+                        _buildDetailRow(Icons.event_busy_outlined, "Tanggal Batas Pengambilan", item.tanggalBatasPengambilan ?? 'Belum ditentukan'),
                         _buildDetailRow(Icons.info_outline, "Status", _getStatusLabel(item.statusBarang)),
 
                         const SizedBox(height: 30),
@@ -263,7 +263,7 @@ class _HistoryPenitipPageState extends State<HistoryPenitipPage> {
     );
   }
 
-Widget _buildBody() {
+ Widget _buildBody() {
     if (_isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -350,7 +350,9 @@ Widget _buildBody() {
                   ),
                 ),
                 
-               
+                // =======================================================
+                // Widget Chip dan SizedBox dihapus dari sini
+                // =======================================================
               ],
             ),
           ),
