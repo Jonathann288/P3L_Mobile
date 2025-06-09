@@ -6,6 +6,7 @@ import 'login_page.dart';
 import 'profil.dart';
 import 'historyPembeli.dart'; // 1. IMPORT HALAMAN HISTORY DI SINI
 import 'historyPenitip.dart';
+import 'top_seller_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/profil': (context) => const ProfileScreen(),
         '/history': (context) => const HistoryPembeli(),
         '/history_penitip': (context) => const HistoryPenitipPage(),
+        '/topseller': (context) => const TopSellerPage(),
       },
     );
   }

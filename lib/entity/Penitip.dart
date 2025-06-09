@@ -41,11 +41,19 @@ class Penitip {
       passwordPenitip: json['password_penitip'],
       nomorTeleponPenitip: json['nomor_telepon_penitip'],
       saldoPenitip: json['saldo_penitip'] != null ? (json['saldo_penitip'] as num).toDouble() : null,
-       totalPoin: json['poin_penitip'] != null ? int.tryParse(json['poin_penitip'].toString()) : null,
+      
+      // [PERBAIKAN] Dibuat fleksibel untuk menerima 'total_poin' (dari API top seller) 
+      // ATAU 'poin_penitip' (dari API profil).
+      totalPoin: int.tryParse((json['total_poin'] ?? json['poin_penitip'])?.toString() ?? '0'),
+
       badge: json['badge'],
       jumlahPenjualan: json['jumlah_penjualan'] != null ? int.tryParse(json['jumlah_penjualan'].toString()) : null,
       fotoProfil: json['foto_profil'],
-    ratingPenitip: json['rating_penitip'] != null ? (json['rating_penitip'] as num).toDouble() : null,
+
+      // [PERBAIKAN] Dibuat fleksibel untuk menerima 'Rating_penitip' (R besar dari API top seller)
+      // ATAU 'rating_penitip' (r kecil dari API profil).
+      ratingPenitip: (json['Rating_penitip'] ?? json['rating_penitip']) != null ? ((json['Rating_penitip'] ?? json['rating_penitip']) as num).toDouble() : null,
+      
       fotoKtp: json['foto_ktp'],
     );
   }

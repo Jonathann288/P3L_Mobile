@@ -96,8 +96,9 @@ class HomePenitip extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // Nama route sudah disesuaikan dengan progress terakhir
-            _navItem(Icons.store, "Merch", Colors.blue, context, '/merchandise'),
+            // == PERUBAHAN DI SINI ==
+            // Ikon, label, dan route diubah untuk mengarah ke halaman Top Seller
+            _navItem(Icons.leaderboard, "Top Seller", Colors.orange, context, '/topseller'),
             _navItem(Icons.history, "History", Colors.blue, context, '/history_penitip'),
             _navItem(Icons.person, "Profil", Colors.blue, context, '/profil'),
           ],
@@ -134,3 +135,4 @@ class HomePenitip extends StatelessWidget {
     );
   }
 }
+

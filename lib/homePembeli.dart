@@ -74,7 +74,7 @@ class HomePembeli extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             // PERUBAHAN: Warna ikon diubah menjadi biru untuk konsistensi tema
-            _navItem(Icons.store, "Merch", Colors.blue, context, '/merchandise'),
+           _navItem(Icons.leaderboard, "Top Seller", Colors.orange, context, '/topseller'),
             _navItem(Icons.history, "History", Colors.blue, context, '/history'),
             _navItem(Icons.person, "Profil", Colors.blue, context, '/profil'),
           ],
