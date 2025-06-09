@@ -5,9 +5,11 @@ import 'package:flutter_application_reusemart/entity/Penitip.dart';
 import 'package:flutter_application_reusemart/entity/MeResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
+
 
 class AuthClient {
-  static const String url = '192.168.1.46'; // pakai http dan port Laravel
+  static const String url = '192.168.1.13'; // pakai http dan port Laravel
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     final uri = Uri.http(url, 'P3L/public/api/auth/login'); // gunakan parse, bukan http()
@@ -47,6 +49,12 @@ class AuthClient {
         'Accept': 'application/json',
       },
     );
+
+    if (kDebugMode) {
+    print('===== RAW JSON RESPONSE for /me =====');
+    print(response.body);
+    print('====================================');
+  }
 
     if (response.statusCode == 200) {
       return MeResponse.fromJson(json.decode(response.body));

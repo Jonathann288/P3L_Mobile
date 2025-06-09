@@ -41,11 +41,11 @@ class Penitip {
       passwordPenitip: json['password_penitip'],
       nomorTeleponPenitip: json['nomor_telepon_penitip'],
       saldoPenitip: json['saldo_penitip'] != null ? (json['saldo_penitip'] as num).toDouble() : null,
-      totalPoin: json['total_poin'] != null ? int.tryParse(json['total_poin'].toString()) : null,
+       totalPoin: json['poin_penitip'] != null ? int.tryParse(json['poin_penitip'].toString()) : null,
       badge: json['badge'],
       jumlahPenjualan: json['jumlah_penjualan'] != null ? int.tryParse(json['jumlah_penjualan'].toString()) : null,
       fotoProfil: json['foto_profil'],
-      ratingPenitip: json['Rating_penitip'] != null ? (json['Rating_penitip'] as num).toDouble() : null,
+    ratingPenitip: json['rating_penitip'] != null ? (json['rating_penitip'] as num).toDouble() : null,
       fotoKtp: json['foto_ktp'],
     );
   }

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TransaksiClient {
-  static const String url = '192.168.1.46';
+  static const String url = '192.168.1.13';
 
   static Future<List<TransaksiPenjualan>> fetchHistory(String? startDate, String? endDate) async {
     final prefs = await SharedPreferences.getInstance();
