@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_reusemart/client/transaksi_client.dart';
 import 'package:flutter_application_reusemart/entity/transaksipenjualan.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart'; // <-- IMPORT PACKAGE BARU
+import 'package:table_calendar/table_calendar.dart';
 
 // ENUM untuk mempermudah pengelolaan filter cepat
 enum DateFilterOptions { last7Days, last30Days, custom }
@@ -29,24 +29,20 @@ class _HistoryPembeliState extends State<HistoryPembeli> {
     _fetchHistory();
   }
 
-  // [MODIFIKASI] Fungsi ini sekarang akan memanggil showModalBottomSheet
   Future<void> _selectCustomDateRange(BuildContext context) async {
-    // Menampilkan bottom sheet dan menunggu hasilnya (DateTimeRange)
     final DateTimeRange? picked = await showModalBottomSheet<DateTimeRange>(
       context: context,
-      isScrollControlled: true, // Penting agar sheet bisa lebih tinggi
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        // Mengirim tanggal yang sedang aktif ke dalam sheet
         return _CalendarRangePickerSheet(
           initialDateRange: DateTimeRange(start: _startDate, end: _endDate),
         );
       },
     );
 
-    // Jika pengguna menekan "Pilih" dan ada hasilnya
     if (picked != null) {
       setState(() {
         _startDate = picked.start;
@@ -57,7 +53,6 @@ class _HistoryPembeliState extends State<HistoryPembeli> {
     }
   }
 
-  // ... (Sisa fungsi _onFilterChanged dan _fetchHistory tidak ada perubahan)
   void _onFilterChanged(DateFilterOptions filter) {
     setState(() {
       _activeFilter = filter;
@@ -98,7 +93,6 @@ class _HistoryPembeliState extends State<HistoryPembeli> {
     }
   }
 
-  // ... (Widget build dan semua widget lainnya tetap sama persis)
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -230,8 +224,22 @@ class _HistoryPembeliState extends State<HistoryPembeli> {
         collapsedBackgroundColor: Colors.white,
         title: Text('No Transaksi: ${trx.noNota}',
             style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(
-            'Tanggal: ${DateFormat('dd MMM yyyy, HH:mm', 'id_ID').format(DateTime.parse(trx.tanggalTransaksi))}'),
+        // [PERUBAHAN] Menggunakan Column untuk subtitle agar bisa menampilkan 2 baris tanggal
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4), // Memberi sedikit jarak dari title
+            Text(
+                'Tanggal: ${DateFormat('dd MMM yyyy, HH:mm', 'id_ID').format(DateTime.parse(trx.tanggalTransaksi))}'),
+            const SizedBox(height: 2),
+            // [TAMBAHAN] Menampilkan Tanggal Selesai (Lunas) jika ada
+            if (trx.tanggalLunas != null)
+              Text(
+                'Selesai: ${DateFormat('dd MMM yyyy, HH:mm', 'id_ID').format(DateTime.parse(trx.tanggalLunas!))}',
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+              ),
+          ],
+        ),
         children: [
           const Divider(height: 1),
           ...trx.detailTransaksi.map((detail) {
@@ -299,7 +307,6 @@ class _HistoryPembeliState extends State<HistoryPembeli> {
     );
   }
 
-// Ganti fungsi _buildSummaryRow yang lama dengan ini
   Widget _buildSummaryRow(String title, String value,
       {bool isBold = false, IconData? icon}) {
     return Padding(
@@ -353,8 +360,6 @@ class _HistoryPembeliState extends State<HistoryPembeli> {
   }
 }
 
-// ============== [WIDGET BARU UNTUK ISI BOTTOM SHEET] ==============
-
 class _CalendarRangePickerSheet extends StatefulWidget {
   final DateTimeRange initialDateRange;
 
@@ -383,7 +388,7 @@ class _CalendarRangePickerSheetState extends State<_CalendarRangePickerSheet> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 20, 16, 30),
       child: Column(
-        mainAxisSize: MainAxisSize.min, // Membuat tinggi sheet sesuai konten
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
@@ -393,16 +398,15 @@ class _CalendarRangePickerSheetState extends State<_CalendarRangePickerSheet> {
           ),
           const SizedBox(height: 16),
           TableCalendar(
-            locale: 'id_ID', // Menampilkan kalender dalam Bahasa Indonesia
+            locale: 'id_ID',
             firstDay: DateTime(2020),
             lastDay: DateTime.now(),
             focusedDay: _focusedDay,
             rangeStartDay: _rangeStart,
             rangeEndDay: _rangeEnd,
             rangeSelectionMode:
-                RangeSelectionMode.toggledOn, // Mode pilih rentang
+                RangeSelectionMode.toggledOn, 
             onDaySelected: (selectedDay, focusedDay) {
-              // Logika ini untuk memilih satu hari saja
               // Dibiarkan kosong karena kita fokus pada onRangeSelected
             },
             onRangeSelected: (start, end, focusedDay) {
@@ -414,7 +418,7 @@ class _CalendarRangePickerSheetState extends State<_CalendarRangePickerSheet> {
             },
             headerStyle: const HeaderStyle(
               formatButtonVisible:
-                  false, // Sembunyikan tombol format (2 weeks, month)
+                  false, 
               titleCentered: true,
             ),
             calendarStyle: CalendarStyle(
@@ -449,12 +453,10 @@ class _CalendarRangePickerSheetState extends State<_CalendarRangePickerSheet> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_rangeStart != null) {
-                      // Kirim DateTimeRange kembali ke halaman utama
                       Navigator.pop(
                           context,
                           DateTimeRange(
                             start: _rangeStart!,
-                            // Jika hanya 1 hari dipilih, end akan null, maka samakan dgn start
                             end: _rangeEnd ?? _rangeStart!,
                           ));
                     }
