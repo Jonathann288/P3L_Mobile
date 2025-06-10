@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 
 
 class AuthClient {
-  static const String url = '192.168.1.13'; // pakai http dan port Laravel
+  static const String url = '172.20.10.5'; // pakai http dan port Laravel
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     final uri = Uri.http(url, 'P3L/public/api/auth/login'); // gunakan parse, bukan http()

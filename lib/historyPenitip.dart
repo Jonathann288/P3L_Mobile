@@ -89,7 +89,7 @@ class _HistoryPenitipPageState extends State<HistoryPenitipPage> {
                             borderRadius: BorderRadius.circular(16),
                             child: item.fotoBarang != null
                                 ? Image.network(
-                                    'http://192.168.1.13/P3L/public/${item.fotoBarang}',
+                                    'http://172.20.10.5/P3L/public/${item.fotoBarang}',
                                     width: MediaQuery.of(context).size.width * 0.6,
                                     height: MediaQuery.of(context).size.width * 0.6,
                                     fit: BoxFit.cover,
@@ -303,7 +303,7 @@ class _HistoryPenitipPageState extends State<HistoryPenitipPage> {
                   radius: 35,
                   backgroundColor: Colors.grey[200],
                   backgroundImage: item.fotoBarang != null
-                      ? NetworkImage('http://192.168.1.13/P3L/public/${item.fotoBarang}')
+                      ? NetworkImage('http://172.20.10.5/P3L/public/${item.fotoBarang}')
                       : null,
                   child: item.fotoBarang == null 
                       ? const Icon(Icons.inventory_2_outlined, size: 30, color: Colors.grey) 

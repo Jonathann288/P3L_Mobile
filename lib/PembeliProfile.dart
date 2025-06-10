@@ -29,7 +29,7 @@ class PembeliProfile extends StatelessWidget {
               radius: 50,
               backgroundColor: primaryColor,
               backgroundImage: (fotoUrl != null && fotoUrl.isNotEmpty)
-                  ? NetworkImage("http://192.168.1.13/P3L/public/${fotoUrl}")
+                  ? NetworkImage("http://172.20.10.5/P3L/public/${fotoUrl}")
                   : null,
               child: (fotoUrl == null || fotoUrl.isEmpty)
                   ? Text(

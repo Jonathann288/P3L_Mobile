@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TopSellerClient {
-  static const String url = '192.168.1.13'; // Pastikan IP ini sudah benar
+  static const String url = '172.20.10.5'; // Pastikan IP ini sudah benar
 
   static Future<TopSellerData> fetchTopSellers() async {
     final prefs = await SharedPreferences.getInstance();

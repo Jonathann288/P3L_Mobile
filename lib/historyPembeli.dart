@@ -245,7 +245,7 @@ class _HistoryPembeliState extends State<HistoryPembeli> {
           ...trx.detailTransaksi.map((detail) {
             final barang = detail.barang!;
             final imageUrl = barang.firstImage != null
-                ? "http://192.168.1.13/P3L/public/${barang.firstImage}"
+                ? "http://172.20.10.5/P3L/public/${barang.firstImage}"
                 : null;
             final hargaSatuan = barang.hargaBarang;
             final totalPerItem = 1 * hargaSatuan;

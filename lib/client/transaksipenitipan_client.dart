@@ -9,7 +9,7 @@ import 'package:flutter_application_reusemart/entity/transaksipenitipan.dart';
 
 // Nama class diubah menjadi TransaksiPenitipanClient
 class TransaksiPenitipanClient {
-  static const String url = '192.168.1.13'; // Sesuaikan dengan IP Anda
+  static const String url = '172.20.10.5'; // Sesuaikan dengan IP Anda
 
   // Tipe data return diubah menjadi TransaksiPenitipanHistory
   static Future<List<TransaksiPenitipanHistory>> fetchHistory() async {
