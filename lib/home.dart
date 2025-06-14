@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   String errorMessage = '';
   final Barangclient _barangClient = Barangclient();
   final Color blue600 = const Color(0xFF2563EB);
+
   @override
   void initState() {
     super.initState();
@@ -69,10 +70,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset(
-          'images/logo6.png',
-          height: 40,
-        ),
+        automaticallyImplyLeading: false,
+        title: Image.asset('images/logo6.png', height: 40),
         centerTitle: true,
         backgroundColor: blue600,
       ),
@@ -82,14 +81,13 @@ class _HomePageState extends State<HomePage> {
               ? Center(child: Text(errorMessage))
               : SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 80), // space for bottom nav
+                    padding: const EdgeInsets.only(bottom: 80),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Kategori Section
                         const Padding(
                           padding: EdgeInsets.all(16.0),
-                          child: Center(  // <== tambah Center di sini
+                          child: Center(
                             child: Text(
                               'Kategori',
                               style: TextStyle(
@@ -101,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         SizedBox(
-                          height: 90, // dari 110 jadi 90
+                          height: 90,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: kategoris.length,
@@ -109,18 +107,18 @@ class _HomePageState extends State<HomePage> {
                               final kategori = kategoris[index];
                               final imageUrl = index < images.length ? images[index] : null;
                               return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0), // dikit diperkecil paddingnya
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Column(
                                   children: [
                                     Container(
-                                      width: 60, // dari 80 jadi 60
-                                      height: 60, // dari 80 jadi 60
+                                      width: 60,
+                                      height: 60,
                                       decoration: BoxDecoration(
                                         color: Colors.orange[100],
-                                        borderRadius: BorderRadius.circular(12), // radius juga dikecilkan sedikit
+                                        borderRadius: BorderRadius.circular(12),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.orange.withOpacity(0.3), // blur dan opacity juga disesuaikan
+                                            color: Colors.orange.withOpacity(0.3),
                                             blurRadius: 5,
                                             offset: const Offset(0, 2),
                                           ),
@@ -135,23 +133,23 @@ class _HomePageState extends State<HomePage> {
                                                 errorBuilder: (context, error, stackTrace) => const Icon(
                                                   Icons.broken_image,
                                                   color: Colors.orange,
-                                                  size: 30, // icon juga lebih kecil
+                                                  size: 30,
                                                 ),
                                               ),
                                             )
                                           : const Icon(
                                               Icons.category,
-                                              size: 30, // icon juga lebih kecil
+                                              size: 30,
                                               color: Colors.orange,
                                             ),
                                     ),
-                                    const SizedBox(height: 4), // jarak dikurangi dari 6 jadi 4
+                                    const SizedBox(height: 4),
                                     SizedBox(
-                                      width: 60, // dari 80 jadi 60
+                                      width: 60,
                                       child: Text(
                                         kategori.namaKategori,
                                         style: const TextStyle(
-                                          fontSize: 11, // font size dikecilkan dari 13 jadi 11
+                                          fontSize: 11,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.black,
                                         ),
@@ -165,12 +163,10 @@ class _HomePageState extends State<HomePage> {
                             },
                           ),
                         ),
-
                         const Divider(thickness: 5, color: Color(0xFF2563EB)),
-                        // Rekomendasi Section
                         const Padding(
                           padding: EdgeInsets.all(16.0),
-                          child: Center(  // <== tambah Center di sini
+                          child: Center(
                             child: Text(
                               'REKOMENDASI',
                               style: TextStyle(
@@ -181,102 +177,90 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: barangs.length,
-                          itemBuilder: (context, index) {
-                            final barang = barangs[index];
-                            return Card(
-                              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                              shape: RoundedRectangleBorder(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              childAspectRatio: 0.75,
+                            ),
+                            itemCount: barangs.length,
+                            itemBuilder: (context, index) {
+                              final barang = barangs[index];
+                              return InkWell(
                                 borderRadius: BorderRadius.circular(15),
-                              ),
-                              elevation: 4,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(15),
-                                onTap: () {
-                                  _openDetailBarang(barang.idBarang);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      if (barang.fotoBarang.isNotEmpty)
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(12),
-                                          child: Image.network(
-                                            '$baseUrl${barang.fotoBarang.first}',
-                                            height: 150,
-                                            width: double.infinity,
-                                            fit: BoxFit.cover,
-                                            errorBuilder: (context, error, stackTrace) =>
-                                                Container(
-                                              height: 150,
-                                              color: Colors.grey[300],
-                                              child: const Icon(Icons.broken_image, size: 50),
+                                onTap: () => _openDetailBarang(barang.idBarang),
+                                child: Card(
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(12),
+                                            child: Container(
+                                              width: double.infinity,
+                                              color: Colors.grey[200],
+                                              child: barang.fotoBarang.isNotEmpty
+                                                  ? Image.network(
+                                                      '$baseUrl${barang.fotoBarang.first}',
+                                                      fit: BoxFit.cover,
+                                                      errorBuilder: (context, error, stackTrace) =>
+                                                          const Icon(Icons.broken_image, size: 40),
+                                                    )
+                                                  : const Icon(Icons.image, size: 40),
                                             ),
                                           ),
-                                        )
-                                      else
-                                        Container(
-                                          height: 150,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[300],
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                          child: const Icon(Icons.broken_image, size: 50),
                                         ),
-                                      const SizedBox(height: 12),
-                                      Text(
-                                        barang.namaBarang,
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          barang.namaBarang,
+                                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                      ),
-                                      const SizedBox(height: 6),
-                                      Text(
-                                        barang.deskripsiBarang,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey[700],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        'Rp ${barang.hargaBarang}',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 12),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          // Add to cart logic
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.black,
-                                          minimumSize: const Size(double.infinity, 45),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(12),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          'Rp ${barang.hargaBarang}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
                                           ),
                                         ),
-                                        child: const Text(
-                                          'Add to cart',
-                                          style: TextStyle(fontSize: 16, color: Colors.white),
+                                        const SizedBox(height: 8),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.blue[800],
+                                              foregroundColor: Colors.white,
+                                              padding: const EdgeInsets.symmetric(vertical: 8),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                            ),
+                                            child: const Text('Add to Cart', style: TextStyle(fontSize: 14)),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),

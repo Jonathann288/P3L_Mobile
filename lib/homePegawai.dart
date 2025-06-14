@@ -8,6 +8,7 @@ class HomePegawai extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF33AADD),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Beranda Pegawai'),
         backgroundColor: Colors.blue,
       ),

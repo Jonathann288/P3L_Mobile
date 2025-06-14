@@ -32,4 +32,36 @@ class MerchendiseClient {
     }
   }
 
+  static Future<Map<String, dynamic>> claimMerchandise(int idMerchandise) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    final uri = Uri.http(url, '/P3L/public/api/auth/claim-merchandise'); // sesuaikan endpoint klaimmu
+    final response = await http.post(
+      uri,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({'id_merchandise': idMerchandise}),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return {
+        'success': true,
+        'message': data['message'],
+        'data': data['data'],
+      };
+    } else {
+      final data = jsonDecode(response.body);
+      return {
+        'success': false,
+        'message': data['message'] ?? 'Terjadi kesalahan',
+        'errors': data['errors'] ?? null,
+      };
+    }
+  }
+
 }
