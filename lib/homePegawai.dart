@@ -12,18 +12,16 @@ class HomePegawai extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFF33AADD), // latar biru
+      backgroundColor: Colors.blue,
       appBar: AppBar(
         title: const Text('Beranda Pegawai'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
       ),
       body: Column(
         children: [
-          const SizedBox(height: 16),
-          const Text(
-            'Daftar Barang Dijual',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
@@ -32,10 +30,28 @@ class HomePegawai extends StatelessWidget {
                 final barang = barangList[index];
                 return Card(
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: ListTile(
-                    title: Text(barang['nama']),
-                    subtitle: Text('Harga: Rp ${barang['harga']}'),
+                    contentPadding: const EdgeInsets.all(16),
+                    title: Text(
+                      barang['nama'],
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      'Harga: Rp ${barang['harga']}',
+                      style: TextStyle(color: Colors.green.shade700),
+                    ),
                     trailing: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                       onPressed: () {
                         // aksi beli / lihat detail
                       },
@@ -96,9 +112,23 @@ class HomePegawai extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: color, size: 24),
+          ),
           const SizedBox(height: 4),
-          Text(label, style: TextStyle(color: color)),
+          Text(
+            label, 
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+            ),
+          ),
         ],
       ),
     );

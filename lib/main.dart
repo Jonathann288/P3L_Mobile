@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'onboarding_screen.dart';
 import 'login_page.dart';
 import 'profil.dart';
+import 'historyPegawai.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginPage(),
         '/profil': (context) => const ProfileScreen(),
+        '/history': (context) => const HistoryPegawaiPage(),
       },
     );
   }

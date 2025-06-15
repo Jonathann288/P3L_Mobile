@@ -110,40 +110,6 @@ class PegawaiProfile extends StatelessWidget {
               ],
             ),
           ),
-
-          // Riwayat Tugas Pengiriman hanya jika jabatan Kurir
-          if (pegawai.jabatan?.namaJabatan == 'Kurir')
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Riwayat Tugas Pengiriman',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    height: 200, // Atur tinggi scroll area sesuai kebutuhan
-                    child: ListView.builder(
-                      itemCount: 10, // Ganti sesuai jumlah riwayat
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: const Icon(Icons.local_shipping,
-                              color: Colors.blue),
-                          title: Text('Pengiriman #${index + 1}'),
-                          subtitle:
-                              const Text('Tujuan: Jakarta\nStatus: Selesai'),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
         ],
       ),
     );
