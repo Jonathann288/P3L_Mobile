@@ -1,184 +1,169 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_reusemart/entity/Penitip.dart';
+import 'package:intl/intl.dart'; // Import paket intl untuk formatting angka
 
 class PenitipProfile extends StatelessWidget {
   final Penitip penitip;
-  final Color primaryColor = Colors.blue; // Customize with your app's theme
+  // Warna utama disesuaikan agar konsisten
+  final Color primaryColor = Colors.blue;
 
-  const PenitipProfile({Key? key, required this.penitip}) : super(key: key);
+  const PenitipProfile({super.key, required this.penitip});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      margin: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          // Profile Header
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: primaryColor.withOpacity(0.1),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+    // Format tanggal lahir agar hanya menampilkan tanggal (YYYY-MM-DD)
+    final String tanggalLahirFormatted =
+        penitip.tanggalLahir?.split(' ').first ?? "-";
+
+    // Format saldo agar lebih mudah dibaca
+    final String saldoFormatted = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp',
+      decimalDigits: 0,
+    ).format(penitip.saldoPenitip ?? 0);
+
+    return Scaffold(
+      // Latar belakang disamakan dengan contoh
+      backgroundColor: const Color(0xFF33AADD),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Avatar Profil
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: primaryColor,
+              child: Text(
+                penitip.namaPenitip?.substring(0, 1).toUpperCase() ?? "?",
+                style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
-            child: Row(
-              children: [
-                // Profile Avatar
-                Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: primaryColor,
-                    border: Border.all(color: primaryColor, width: 2),
-                  ),
-                  child: Center(
-                    child: Text(
-                      penitip.namaPenitip?.substring(0, 1) ?? "?",
-                      style: const TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+            const SizedBox(height: 16),
+            // Nama Penitip
+            Text(
+              penitip.namaPenitip ?? "Nama Penitip",
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4),
+            // Email Penitip
+            Text(
+              penitip.emailPenitip ?? "email@example.com",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white70,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            // Kartu yang berisi detail informasi
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    _buildInfoRow(
+                      icon: Icons.star_rounded,
+                      title: "Rating",
+                      value: penitip.ratingPenitip?.toStringAsFixed(1) ?? "0.0",
+                      iconColor: Colors.amber,
                     ),
+                    const Divider(height: 20),
+                    _buildInfoRow(
+                      icon: Icons.credit_card,
+                      title: "No. KTP",
+                      value: penitip.nomorKtp ?? "-",
+                    ),
+                    const Divider(height: 20),
+                    _buildInfoRow(
+                      icon: Icons.cake_rounded,
+                      title: "Tanggal Lahir",
+                      value: tanggalLahirFormatted,
+                    ),
+                    const Divider(height: 20),
+                    _buildInfoRow(
+                      icon: Icons.account_balance_wallet_rounded,
+                      title: "Saldo",
+                      value: saldoFormatted,
+                      iconColor: Colors.green,
+                    ),
+                    const Divider(height: 20),
+                    _buildInfoRow(
+                      icon: Icons.loyalty_rounded,
+                      title: "Total Poin",
+                      value: penitip.totalPoin?.toString() ?? "0",
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Tombol Edit Profil
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.edit, color: Colors.white),
+                label: const Text(
+                  "Edit Profil",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  // Tambahkan logika navigasi ke halaman edit profil di sini
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                const SizedBox(width: 16),
-                // Name and Rating
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        penitip.namaPenitip ?? "-",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            penitip.ratingPenitip?.toStringAsFixed(1) ?? "0.0",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          if (penitip.badge != null)
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                penitip.badge!,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-          // Profile Details
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                _buildDetailRow(
-                  icon: Icons.credit_card,
-                  label: "No. KTP",
-                  value: penitip.nomorKtp ?? "-",
-                ),
-                const SizedBox(height: 12),
-                _buildDetailRow(
-                  icon: Icons.email,
-                  label: "Email",
-                  value: penitip.emailPenitip ?? "-",
-                ),
-                const SizedBox(height: 12),
-                _buildDetailRow(
-                  icon: Icons.cake,
-                  label: "Tanggal Lahir",
-                  value: penitip.tanggalLahir ?? "-",
-                ),
-                const SizedBox(height: 12),
-                _buildDetailRow(
-                  icon: Icons.account_balance_wallet,
-                  label: "Saldo",
-                  value: "Rp${penitip.saldoPenitip?.toStringAsFixed(2) ?? "0.00"}",
-                  isAmount: true,
-                ),
-                const SizedBox(height: 12),
-                _buildDetailRow(
-                  icon: Icons.loyalty,
-                  label: "Total Poin",
-                  value: penitip.totalPoin?.toString() ?? "0",
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildDetailRow({
+  // Widget helper baru untuk menampilkan baris informasi
+  Widget _buildInfoRow({
     required IconData icon,
-    required String label,
+    required String title,
     required String value,
-    bool isAmount = false,
+    Color? iconColor,
   }) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          icon,
-          color: primaryColor,
-          size: 24,
+        Icon(icon, color: iconColor ?? primaryColor, size: 24),
+        const SizedBox(width: 16),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: isAmount ? Colors.green : Colors.black,
-                ),
-              ),
-            ],
+        const Spacer(),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey[800],
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],

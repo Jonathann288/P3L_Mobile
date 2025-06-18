@@ -289,7 +289,8 @@ class _HomePembeliState extends State<HomePembeli> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _navItem(Icons.store, "Merch", Colors.deepOrange, context, '/merchandise'),
-          _navItem(Icons.history, "History", Colors.pink, context, '/history'),
+          _navItem(Icons.store, "Top Seller", Colors.red, context, '/topseller'),
+          _navItem(Icons.history, "History", Colors.pink, context, '/history_pembeli'),
           _navItem(Icons.person, "Profil", Colors.blue, context, '/profil'),
         ],
       ),

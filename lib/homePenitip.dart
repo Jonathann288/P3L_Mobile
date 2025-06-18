@@ -288,7 +288,7 @@ class _HomePenitipState extends State<HomePenitip> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _navItem(Icons.history, "History", Colors.pink, context, '/history'),
+          _navItem(Icons.history, "History", Colors.pink, context, '/history_penitip'),
           _navItem(Icons.person, "Profil", Colors.blue, context, '/profil'),
         ],
       ),

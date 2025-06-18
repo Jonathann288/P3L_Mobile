@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_reusemart/client/AuthClient.dart';
-import 'package:flutter_application_reusemart/homePegawai.dart'; // Pastikan file auth_client.dart ada di project kamu
-import 'package:flutter_application_reusemart/homePembeli.dart'; // Pastikan file auth_client.dart ada di project kamu
-import 'package:flutter_application_reusemart/homePenitip.dart'; // Pastikan file auth_client.dart ada di project kamu
+import 'package:flutter_application_reusemart/homePegawai.dart';
+import 'package:flutter_application_reusemart/homePembeli.dart';
+import 'package:flutter_application_reusemart/homePenitip.dart';
+import 'onboarding_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,13 +23,11 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   late Animation<Offset> _slideAnimation;
 
   final AuthClient _authClient = AuthClient();
-
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
@@ -87,7 +86,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       );
 
-      // Arahkan ke halaman sesuai role
       if (role == 'penitip') {
         Navigator.pushReplacement(
           context,
@@ -120,8 +118,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +128,20 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             padding: const EdgeInsets.all(24.0),
             child: Column(
               children: [
-                const SizedBox(height: 60),
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
                 _buildHeader(),
                 const SizedBox(height: 50),
                 _buildLoginForm(),
