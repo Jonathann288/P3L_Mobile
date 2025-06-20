@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'product_page.dart';
 import 'login_page.dart';
+import 'package:flutter_application_reusemart/home.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -22,7 +24,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     const Slide(
       icon: Icons.lightbulb_outline,
       title: 'Konsep Kami',
-      subtitle: 'Wujudkan gaya hidup ramah lingkungan dengan membeli dan menjual barang bekas berkualitas. ReuseMart memudahkanmu memberi hidup kedua untuk barang yang tak lagi digunakan.',
+      subtitle:
+          'Wujudkan gaya hidup ramah lingkungan dengan membeli dan menjual barang bekas berkualitas. ReuseMart memudahkanmu memberi hidup kedua untuk barang yang tak lagi digunakan.',
       backgroundColor: Colors.blue,
     ),
     const Slide(
@@ -70,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  MaterialPageRoute(builder: (context) => const HomePage()),
                 );
               },
               child: const Text(
@@ -105,7 +108,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           margin: const EdgeInsets.symmetric(vertical: 5),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: _currentPage == i ? Colors.white : Colors.white.withOpacity(0.5),
+            color: _currentPage == i
+                ? Colors.white
+                : Colors.white.withOpacity(0.5),
           ),
         ),
       );
@@ -172,7 +177,8 @@ class Slide extends StatelessWidget {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

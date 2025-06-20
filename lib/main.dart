@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'onboarding_screen.dart';
 import 'login_page.dart';
+import 'profil.dart';
+import 'history.dart';
+import 'Merch.dart';
+import 'historyPembeli.dart';
+import 'historyPenitip.dart';
+import 'top_seller_page.dart';
+import 'detailBarang.dart';
+import 'entity/Barang.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
   runApp(const MyApp());
 }
 
@@ -21,6 +32,12 @@ class MyApp extends StatelessWidget {
       home: const OnboardingScreen(),
       routes: {
         '/login': (context) => const LoginPage(),
+        '/profil': (context) => const ProfileScreen(),
+        '/history': (context) => const HistoryScreen(),
+        '/merchandise': (context) =>  MerchPage(),
+        '/history_penitip': (context) => const HistoryPenitipPage(),
+        '/history_pembeli': (context) => const HistoryPembeli(),
+        '/topseller': (context) => const TopSellerPage(),
       },
     );
   }
