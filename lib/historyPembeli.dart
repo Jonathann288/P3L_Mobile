@@ -15,7 +15,7 @@ class HistoryPembeli extends StatefulWidget {
 }
 
 class _HistoryPembeliState extends State<HistoryPembeli> {
-  static const String baseUrl = 'http://10.0.2.2:8000/';
+  static const String baseUrl = 'https://reusemartshop.sikoding.id';
   DateTime _startDate = DateTime.now().subtract(const Duration(days: 30));
   DateTime _endDate = DateTime.now();
   List<TransaksiPenjualan2> _transactions = [];

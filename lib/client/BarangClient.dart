@@ -4,10 +4,10 @@ import 'package:flutter_application_reusemart/entity/Kategori_barang.dart';
 import 'package:flutter_application_reusemart/entity/Barang.dart';
 
 class Barangclient {
-  static const String url = '10.0.2.2';
+  static const String url = 'reusemartshop.sikoding.id';
 
   Future<Map<String, dynamic>> fetchShopData() async {
-    final uri = Uri.http('$url', '/P3L/public/api/shop-show');
+    final uri = Uri.https('$url', '/api/shop-show');
 
     final response = await http.get(uri);
 
@@ -35,7 +35,7 @@ class Barangclient {
   }
 
   Future<Map<String, dynamic>> fetchBarangDetail(int idBarang) async {
-    final uri = Uri.http('$url', '/P3L/public/api/barang/$idBarang');
+    final uri = Uri.https('$url', '/api/barang/$idBarang');
 
     final response = await http.get(uri);
 

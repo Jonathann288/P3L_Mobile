@@ -6,7 +6,7 @@ class MerchPage extends StatefulWidget {
   @override
   _MerchPageState createState() => _MerchPageState();
 
-  static const String baseUrl = 'http://10.0.2.2:8000';
+  static const String baseUrl = 'https://reusemartshop.sikoding.id/';
 }
 
 class _MerchPageState extends State<MerchPage> {

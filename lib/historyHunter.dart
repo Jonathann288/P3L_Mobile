@@ -152,7 +152,7 @@ class _HistoryHunterState extends State<HistoryHunter> {
     final fotoList = komisi['foto_barang'] as List? ?? [];
     final List<String> fotoUrls = fotoList.map((e) {
       final img = e.toString();
-      return img.startsWith('http') ? img : 'http://10.0.2.2:8000/$img';
+      return img.startsWith('https') ? img : 'https://reusemartshop.sikoding.id/$img';
     }).toList();
 
     return Card(
@@ -259,7 +259,7 @@ class _HistoryHunterState extends State<HistoryHunter> {
     final fotoList = komisi['foto_barang'] as List? ?? [];
     final List<String> fotoUrls = fotoList.map((e) {
       final img = e.toString();
-      return img.startsWith('http') ? img : 'http://10.0.2.2:8000/$img';
+      return img.startsWith('https') ? img : 'https://reusemartshop.sikoding.id/$img';
     }).toList();
 
     showModalBottomSheet(

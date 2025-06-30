@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const String baseUrl = 'http://10.0.2.2:8000/';
+  static const String baseUrl = 'https://reusemartshop.sikoding.id/';
   List<KategoriBarang> kategoris = [];
   List<Barang> barangs = [];
   List<String> images = [];

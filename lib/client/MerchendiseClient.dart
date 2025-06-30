@@ -4,13 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_reusemart/entity/Merchendise.dart';
 
 class MerchendiseClient {
-  static const String url = '10.0.2.2';
+  static const String url = 'reusemartshop.sikoding.id';
 
   static Future<List<Merchandise>> fetchMerchandise() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token'); // Ambil token dari SharedPreferences
 
-    final uri = Uri.http(url, '/P3L/public/api/auth/merchandise');
+    final uri = Uri.https(url, '/api/auth/merchandise');
     final response = await http.get(
       uri,
       headers: {
@@ -36,7 +36,7 @@ class MerchendiseClient {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
-    final uri = Uri.http(url, '/P3L/public/api/auth/claim-merchandise'); // sesuaikan endpoint klaimmu
+    final uri = Uri.https(url, '/api/auth/claim-merchandise'); // sesuaikan endpoint klaimmu
     final response = await http.post(
       uri,
       headers: {

@@ -9,7 +9,7 @@ import 'package:flutter_application_reusemart/entity/TransaksiPenitipanHistory.d
 
 // Nama class diubah menjadi TransaksiPenitipanClient
 class TransaksiPenitipanClient {
-  static const String url = '10.0.2.2'; // Sesuaikan dengan IP Anda
+  static const String url = 'reusemartshop.sikoding.id'; // Sesuaikan dengan IP Anda
 
   // Tipe data return diubah menjadi TransaksiPenitipanHistory
   static Future<List<TransaksiPenitipanHistory>> fetchHistory() async {
@@ -19,7 +19,7 @@ class TransaksiPenitipanClient {
       throw Exception('Token tidak ditemukan, silahkan login ulang');
     }
 
-    final uri = Uri.http(url, '/P3L/public/api/auth/penitip/history');
+    final uri = Uri.https(url, '/api/auth/penitip/history');
 
     final response = await http.get(
       uri,

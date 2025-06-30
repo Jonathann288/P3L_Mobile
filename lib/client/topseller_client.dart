@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TopSellerClient {
-  static const String url = '10.0.2.2'; // Pastikan IP ini sudah benar
+  static const String url = 'reusemartshop.sikoding.id'; // Pastikan IP ini sudah benar
 
   static Future<TopSellerData> fetchTopSellers() async {
     final prefs = await SharedPreferences.getInstance();
@@ -14,7 +14,7 @@ class TopSellerClient {
       throw Exception('Token tidak ditemukan, silahkan login ulang');
     }
 
-    final uri = Uri.http(url, '/P3L/public/api/auth/topseller');
+    final uri = Uri.https(url, '/api/auth/topseller');
     
     // -- DEBUGGING --
     if (kDebugMode) {

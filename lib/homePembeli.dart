@@ -13,7 +13,7 @@ class HomePembeli extends StatefulWidget {
 }
 
 class _HomePembeliState extends State<HomePembeli> {
-  static const String baseUrl = 'http://10.0.2.2:8000/';
+  static const String baseUrl = 'https://reusemartshop.sikoding.id/';
   List<KategoriBarang> kategoris = [];
   List<Barang> barangs = [];
   List<String> images = [];

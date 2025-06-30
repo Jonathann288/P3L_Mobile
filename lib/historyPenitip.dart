@@ -92,7 +92,7 @@ class _HistoryPenitipPageState extends State<HistoryPenitipPage> {
                                 final foto = item.fotoBarang[index];
                                 final imageUrl = foto.startsWith('http')
                                     ? foto
-                                    : 'http://10.0.2.2:8000/P3L/public/$foto';
+                                    : 'https://reusemartshop.sikoding.id/$foto';
 
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 8.0),

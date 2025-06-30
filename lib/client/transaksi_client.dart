@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TransaksiClient {
-  static const String url = '10.0.2.2';
+  static const String url = 'reusemartshop.sikoding.id';
 
   static Future<List<TransaksiPenjualan2>> fetchHistory(String? startDate, String? endDate) async {
     final prefs = await SharedPreferences.getInstance();
@@ -19,7 +19,7 @@ class TransaksiClient {
       if (endDate != null) 'end_date': endDate,
     };
 
-    final uri = Uri.http(url, '/P3L/public/api/auth/pembeli/history', queryParams);
+    final uri = Uri.https(url, '/api/auth/pembeli/history', queryParams);
     final response = await http.get(uri, headers: {
       'Authorization': 'Bearer $token',
       'Accept': 'application/json',

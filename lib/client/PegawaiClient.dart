@@ -5,14 +5,14 @@ import 'package:flutter_application_reusemart/entity/transaksi_penjualan.dart';
 import 'package:flutter_application_reusemart/entity/TransaksiPenitipan.dart';
 
 class PegawaiClient {
-  static const String url = '10.0.2.2';
+  static const String url = 'reusemartshop.sikoding.id';
 
   Future<Map<String, dynamic>> getKomisiHistory() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     print('Token from prefs: $token');
 
-    final uri = Uri.http('$url','/P3L/public/api/auth/komisi/history');
+    final uri = Uri.https('$url','/api/auth/komisi/history');
     final response = await http.get(
       uri,
       headers: {
@@ -41,7 +41,7 @@ class PegawaiClient {
     final token = prefs.getString('token');
     print('Token from prefs: $token');
 
-    final uri = Uri.http('$url','/P3L/public/api/auth/transaksipenjualan/diantar-kurir');
+    final uri = Uri.https('$url','/api/auth/transaksipenjualan/diantar-kurir');
     final response = await http.get(
       uri,
       headers: {
@@ -70,7 +70,7 @@ class PegawaiClient {
     String idTransaksi, String statusBaru) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
-    final uri = Uri.http('$url','/P3L/public/api/auth/transaksipenjualan/$idTransaksi/update-status');
+    final uri = Uri.https('$url','/api/auth/transaksipenjualan/$idTransaksi/update-status');
 
     final response = await http.put(
       uri,

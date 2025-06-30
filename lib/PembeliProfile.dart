@@ -29,7 +29,7 @@ class PembeliProfile extends StatelessWidget {
               radius: 50,
               backgroundColor: primaryColor,
               backgroundImage: (fotoUrl != null && fotoUrl.isNotEmpty)
-                  ? NetworkImage("http://10.0.2.2:8000/${fotoUrl}")
+                  ? NetworkImage("https://reusemartshop.sikoding.id/${fotoUrl}")
                   : null,
               child: (fotoUrl == null || fotoUrl.isEmpty)
                   ? Text(

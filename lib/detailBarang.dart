@@ -13,7 +13,7 @@ class DetailBarang extends StatefulWidget {
   @override
   State<DetailBarang> createState() => _DetailBarangState();
 
-  static const String baseUrl = 'http://10.0.2.2:8000/';
+  static const String baseUrl = 'https://reusemartshop.sikoding.id/';
 }
 
 class _DetailBarangState extends State<DetailBarang> {
