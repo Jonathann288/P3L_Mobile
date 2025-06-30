@@ -32,30 +32,31 @@ class TransaksiPenitipan {
 
   factory TransaksiPenitipan.fromJson(Map<String, dynamic> json) {
     return TransaksiPenitipan(
-      idTransaksiPenitipan: json['id_transaksi_penitipan'],
-      id: json['id'],
-      idPegawai: json['id_pegawai'],
-      idPenitip: json['id_penitip'],
+      idTransaksiPenitipan: int.tryParse(json['id_transaksi_penitipan']?.toString() ?? ''),
+      id: int.tryParse(json['id']?.toString() ?? ''),
+      idPegawai: int.tryParse(json['id_pegawai']?.toString() ?? ''),
+      idPenitip: int.tryParse(json['id_penitip']?.toString() ?? ''),
       tanggalPenitipan: json['tanggal_penitipan'] != null
-          ? DateTime.parse(json['tanggal_penitipan'])
+          ? DateTime.tryParse(json['tanggal_penitipan'])
           : null,
       tanggalAkhirPenitipan: json['tanggal_akhir_penitipan'] != null
-          ? DateTime.parse(json['tanggal_akhir_penitipan'])
+          ? DateTime.tryParse(json['tanggal_akhir_penitipan'])
           : null,
       tanggalBatasPengambilan: json['tanggal_batas_pengambilan'] != null
-          ? DateTime.parse(json['tanggal_batas_pengambilan'])
+          ? DateTime.tryParse(json['tanggal_batas_pengambilan'])
           : null,
       tanggalPengambilanBarang: json['tanggal_pengambilan_barang'] != null
-          ? DateTime.parse(json['tanggal_pengambilan_barang'])
+          ? DateTime.tryParse(json['tanggal_pengambilan_barang'])
           : null,
       pegawai: json['pegawai'] != null ? Pegawai.fromJson(json['pegawai']) : null,
       penitip: json['penitip'] != null ? Penitip.fromJson(json['penitip']) : null,
       detailTransaksiPenitipan: json['detailtransaksipenitipan'] != null
-          ? List<DetailTransaksiPenitipan>.from(json['detailtransaksipenitipan']
-              .map((x) => DetailTransaksiPenitipan.fromJson(x)))
+          ? List<DetailTransaksiPenitipan>.from(
+              json['detailtransaksipenitipan'].map((x) => DetailTransaksiPenitipan.fromJson(x)))
           : null,
     );
   }
+
 
   Map<String, dynamic> toJson() {
     return {

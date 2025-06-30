@@ -19,10 +19,10 @@ class Komisi {
 
   factory Komisi.fromJson(Map<String, dynamic> json) {
     return Komisi(
-      idKomisi: json['id_komisi'],
-      idTransaksiPenjualan: json['id_transaksi_penjualan'],
-      idPenitip: json['id_penitip'],
-      idPegawai: json['id_pegawai'],
+      idKomisi: int.tryParse(json['id_komisi']?.toString() ?? ''),
+      idTransaksiPenjualan: int.tryParse(json['id_transaksi_penjualan']?.toString() ?? ''),
+      idPenitip: int.tryParse(json['id_penitip']?.toString() ?? ''),
+      idPegawai: int.tryParse(json['id_pegawai']?.toString() ?? ''),
       komisiPenitip: (json['komisi_penitip'] as num?)?.toDouble(),
       komisiReusemart: (json['komisi_reusemart'] as num?)?.toDouble(),
       komisiHunter: (json['komisi_hunter'] as num?)?.toDouble(),

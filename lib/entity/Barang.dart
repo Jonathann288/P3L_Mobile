@@ -33,13 +33,13 @@ class Barang {
 
   factory Barang.fromJson(Map<String, dynamic> json) {
     return Barang(
-      idBarang: json['id_barang'],
-      idKategori: json['id_kategori'],
+      idBarang: int.parse(json['id_barang'].toString()),
+      idKategori: int.parse(json['id_kategori'].toString()),
       namaBarang: json['nama_barang'],
       fotoBarang: (json['foto_barang'] as List).map((e) => e.toString()).toList(),
       hargaBarang: (json['harga_barang'] as num).toDouble(),
       deskripsiBarang: json['deskripsi_barang'] ?? '',
-      masaPenitipan: json['masa_penitipan'] ?? 0,
+      masaPenitipan: int.tryParse(json['masa_penitipan'].toString()) ?? 0,
       statusBarang: json['status_barang'] ?? '',
       ratingBarang: (json['rating_barang'] as num?)?.toDouble() ?? 0.0,
       beratBarang: (json['berat_barang'] as num?)?.toDouble() ?? 0.0,

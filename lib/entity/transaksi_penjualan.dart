@@ -35,9 +35,7 @@ class BarangDetail {
   factory BarangDetail.fromJson(Map<String, dynamic> json) {
     return BarangDetail(
       namaBarang: json['nama_barang'],
-      hargaBarang: (json['harga_barang'] != null)
-          ? double.tryParse(json['harga_barang'].toString())
-          : null,
+      hargaBarang: double.tryParse(json['harga_barang'].toString()), // Aman
       jumlah: (json['jumlah'] != null)
           ? int.tryParse(json['jumlah'].toString())
           : null,
@@ -69,12 +67,13 @@ class TransaksiPenjualan3 {
   });
 
   factory TransaksiPenjualan3.fromJson(Map<String, dynamic> json) {
-    var list = <BarangDetail>[];
-    if (json['barang_list'] != null) {
+    List<BarangDetail> list = [];
+    if (json['barang_list'] is List) {
       list = (json['barang_list'] as List)
           .map((item) => BarangDetail.fromJson(item))
           .toList();
     }
+
 
     return TransaksiPenjualan3(
       idTransaksi: json['id']?.toString(),
@@ -85,9 +84,10 @@ class TransaksiPenjualan3 {
       statusPembayaran: json['status_pembayaran'],
       barangList: list,
       namaPembeli: json['nama_pembeli'],
-      alamatPengiriman: json['alamat'] != null
+      alamatPengiriman: (json['alamat'] is Map)
           ? Alamat.fromJson(json['alamat'])
-          : null, // Tambahkan parsing alamat
+          : null,
+ // Tambahkan parsing alamat
     );
   }
 }
